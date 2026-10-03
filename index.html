@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>LUNA VOICE • Now Playing</title>
+  <meta name="description" content="LUNA VOICE - a private, minimal voice player experience.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Ambient dynamic glow behind the card (based on artwork) -->
+  <div class="ambient-artwork-backdrop" id="ambientBackdrop" aria-hidden="true"></div>
+  <div class="ambient-glow" id="ambientGlow" aria-hidden="true"></div>
+
+  <!-- ==========================================
+       1. ENTRY SCREEN (Minimal Full-screen Landing)
+       ========================================== -->
+  <section class="entry-screen" id="entryScreen" role="region" aria-label="Welcome Screen">
+    <div class="entry-content">
+      
+      <!-- Spotify-inspired Opening Emblem Icon -->
+      <button class="entry-icon-btn" id="entryBtn" aria-label="Open Music Player and Play Audio">
+        <div class="icon-pulse-ring" aria-hidden="true"></div>
+        <div class="icon-pulse-ring-outer" aria-hidden="true"></div>
+        
+        <div class="emblem-circle">
+          <!-- Spotify-inspired modern acoustic wave soundmark -->
+          <svg class="emblem-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="50" cy="50" r="48" fill="#1ED760" />
+            <!-- Modern curved audio waves -->
+            <path d="M28 36.5C41 32 59 33 72 40" stroke="#121212" stroke-width="7" stroke-linecap="round"/>
+            <path d="M31.5 50C42.5 46.5 57.5 47.5 68.5 53.5" stroke="#121212" stroke-width="6.5" stroke-linecap="round"/>
+            <path d="M35 63.5C44 60.8 56 61.5 65 66.5" stroke="#121212" stroke-width="6" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </button>
+
+      <!-- Subtitle prompt -->
+      <div class="entry-text-wrapper">
+        <span class="entry-tag">PRIVATE SELECTION</span>
+        <h1 class="entry-title">Tap to open</h1>
+        <p class="entry-hint">Click anywhere to start the experience</p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==========================================
+       2. MUSIC PLAYER PAGE
+       ========================================== -->
+  <main class="player-container hidden" id="playerContainer" role="main" aria-label="Music Player">
+    
+    <!-- Top Navigation Bar -->
+    <header class="player-header">
+      <button class="header-btn" id="backToEntryBtn" title="Return to opening screen" aria-label="Back to welcome screen">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
+
+      <div class="header-titles">
+        <span class="header-tag">PLAYING FROM LIBRARY</span>
+        <span class="header-collection">Personal Digital Card</span>
+      </div>
+
+      <button class="header-btn" id="cardInfoBtn" title="About this card" aria-label="Card details">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="1"></circle>
+          <circle cx="19" cy="12" r="1"></circle>
+          <circle cx="5" cy="12" r="1"></circle>
+        </svg>
+      </button>
+    </header>
+
+    <!-- Main Content Area -->
+    <div class="player-body">
+
+      <!-- Album / Photo Artwork -->
+      <div class="artwork-wrapper">
+        <div class="artwork-card" id="artworkCard">
+          <!-- 
+            ================================================================
+            IMAGE SOURCE:
+            Place your photo at: assets/cover.jpg
+            The provided photo is loaded by default.
+            ================================================================
+          -->
+          <img 
+            src="assets/cover.jpg" 
+            alt="LUNA VOICE artwork" 
+            class="artwork-img" 
+            id="coverImage"
+            loading="eager"
+            onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'400\' viewBox=\'0 0 400 400\'><rect fill=\'%23282828\' width=\'400\' height=\'400\'/><text fill=\'%23b3b3b3\' font-family=\'sans-serif\' font-size=\'20\' dy=\'10.5\' font-weight=\'bold\' x=\'50%25\' y=\'50%25\' text-anchor=\'middle\'>assets/cover.jpg</text></svg>'"
+          />
+          <div class="artwork-glare" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <!-- Song & Artist Information -->
+      <div class="track-info-section">
+        <div class="track-details">
+          <!-- 
+            ================================================================
+            SONG TITLE & ARTIST NAME:
+            You can customize these placeholders anytime in HTML or script.js
+            ================================================================
+          -->
+          <h2 class="track-title" id="trackTitle" title="Chalre Chalre Waal">Chalre Chalre Waal</h2>
+          <p class="track-artist" id="trackArtist">Special Edition</p>
+        </div>
+
+        <!-- Heart / Favorite Button -->
+        <button class="like-btn" id="likeBtn" aria-label="Save to your favorites" title="Like track">
+          <svg class="heart-icon empty" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+          <svg class="heart-icon filled" width="24" height="24" viewBox="0 0 24 24" fill="#1ED760" stroke="#1ED760" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Progress / Seek Bar Section -->
+      <div class="progress-section">
+        <div class="progress-bar-container" id="progressBarContainer" role="slider" aria-label="Audio scrubber" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0">
+          <div class="progress-bar-track">
+            <div class="progress-bar-fill" id="progressBarFill"></div>
+            <div class="progress-bar-handle" id="progressBarHandle"></div>
+          </div>
+        </div>
+        
+        <div class="time-display">
+          <span class="time-current" id="currentTime">0:00</span>
+          <span class="time-duration" id="totalDuration">0:00</span>
+        </div>
+      </div>
+
+      <!-- Main Controls Row -->
+      <div class="controls-section">
+        
+        <!-- Loop / Repeat Toggle Button -->
+        <button class="control-btn secondary-btn" id="loopBtn" aria-label="Toggle repeat mode" title="Repeat song">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="17 1 21 5 17 9"></polyline>
+            <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
+            <polyline points="7 23 3 19 7 15"></polyline>
+            <path d="M21 13v2a4 4 0 0 1-4 4H3"></path>
+          </svg>
+          <span class="active-dot" aria-hidden="true"></span>
+        </button>
+
+        <!-- Previous / Rewind 10s Button -->
+        <button class="control-btn secondary-btn" id="prevBtn" aria-label="Rewind 10 seconds" title="Rewind 10s">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+            <!-- Rewind SVG -->
+            <polygon points="11 19 2 12 11 5 11 19"></polygon>
+            <polygon points="22 19 13 12 22 5 22 19"></polygon>
+          </svg>
+        </button>
+
+        <!-- Primary Play/Pause Button -->
+        <button class="control-btn play-btn" id="playBtn" aria-label="Play or pause audio" title="Play / Pause">
+          <!-- Play Icon -->
+          <svg class="play-icon" id="playIcon" width="28" height="28" viewBox="0 0 24 24" fill="#000000">
+            <polygon points="6 3 20 12 6 21 6 3"></polygon>
+          </svg>
+          <!-- Pause Icon -->
+          <svg class="pause-icon hidden" id="pauseIcon" width="28" height="28" viewBox="0 0 24 24" fill="#000000">
+            <rect x="6" y="4" width="4" height="16" rx="1"></rect>
+            <rect x="14" y="4" width="4" height="16" rx="1"></rect>
+          </svg>
+        </button>
+
+        <!-- Next / Fast-Forward 10s Button -->
+        <button class="control-btn secondary-btn" id="nextBtn" aria-label="Fast forward 10 seconds" title="Forward 10s">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+            <!-- Fast Forward SVG -->
+            <polygon points="13 19 22 12 13 5 13 19"></polygon>
+            <polygon points="2 19 11 12 2 5 2 19"></polygon>
+          </svg>
+        </button>
+
+        <!-- Shuffle / Audio Wave Mode Button -->
+        <button class="control-btn secondary-btn" id="shuffleBtn" aria-label="Toggle shuffle" title="Shuffle mode">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="16 3 21 3 21 8"></polyline>
+            <line x1="4" y1="20" x2="21" y2="3"></line>
+            <polyline points="21 16 21 21 16 21"></polyline>
+            <line x1="15" y1="15" x2="21" y2="21"></line>
+            <line x1="4" y1="4" x2="9" y2="9"></line>
+          </svg>
+          <span class="active-dot" aria-hidden="true"></span>
+        </button>
+
+      </div>
+
+      <!-- Live Animated Equalizer & Audio Device Footer -->
+      <footer class="player-footer">
+        <div class="audio-device-indicator">
+          <div class="equalizer-bars" id="equalizerBars" aria-hidden="true">
+            <span class="eq-bar"></span>
+            <span class="eq-bar"></span>
+            <span class="eq-bar"></span>
+            <span class="eq-bar"></span>
+          </div>
+          <span class="device-text" id="statusText">Playing on High Quality Audio</span>
+        </div>
+
+        <button class="share-btn" id="shareBtn" aria-label="Share this music card" title="Share">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="18" cy="5" r="3"></circle>
+            <circle cx="6" cy="12" r="3"></circle>
+            <circle cx="18" cy="19" r="3"></circle>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+          </svg>
+        </button>
+      </footer>
+
+    </div>
+
+    <!-- Notification / Toast for User Feedback -->
+    <div class="toast-notification" id="toastNotice" role="status" aria-live="polite"></div>
+
+  </main>
+
+
+  <!-- ==========================================
+       3. HTML5 AUDIO ELEMENT
+       ==========================================
+       Place your audio file at: assets/song.mp3
+       The player communicates directly with this element.
+       ========================================== -->
+  <audio id="audioPlayer" preload="metadata">
+    <!-- Replace or supply assets/song.mp3 -->
+    <source src="assets/song.mp3" type="audio/mpeg">
+    <source src="assets/song.mp3" type="audio/mp4">
+    <source src="assets/song.mp3" type="audio/ogg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
